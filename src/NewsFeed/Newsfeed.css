@@ -1,0 +1,47 @@
+.newsfeed{
+    margin-top: 2%;
+    border: 1px solid orange;
+    flex: 0.7;
+    color: black;
+}
+
+.newsfeed__portfolio{
+   height: 200px;
+}
+.newsfeed__portfolio h1{
+    margin:2%;
+
+}
+.newsfeed__portfolio p {
+    margin-left: 2%;
+    margin-top: 0%;
+}
+
+@media(max-width:1256px){
+    .newsfeed{
+        margin-top: 7%;
+        border: 1px solid orange;
+        flex: 0.7;
+        color: black;
+    }   
+
+}
+@media(max-width:952px){
+    .newsfeed{
+        margin-top: 7%;
+        border: 1px solid orange;
+        flex: 0.7;
+        color: black;
+    }   
+
+}
+
+@media(max-width:858px){
+    .newsfeed{
+        margin-top: 8%;
+        border: 1px solid orange;
+        flex: 0.7;
+        color: black;
+    }   
+
+}

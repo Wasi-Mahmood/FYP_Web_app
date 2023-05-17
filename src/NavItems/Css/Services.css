@@ -1,0 +1,517 @@
+/*.services {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .service {
+    width: 30%;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .service img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+  }
+  
+  .service h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .service p {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+  */
+
+
+  .services_section {
+    width: 100%;
+    float: left;
+    /*background-image: url(../images/services-bg.png);*/
+    height: auto;
+    margin-top: 75px;
+    padding-bottom: 60px;
+    background-size: 100%;
+}
+
+.services_taital {
+    width: 100%;
+    float: left;
+    font-size: 34px;
+    color: #282c47;
+    padding-top: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.services_taital::after {
+    content: '';
+    background-color: #ff5a58;
+    position: absolute;
+    width: 60px;
+    text-align: center;
+    right: initial;
+    top: 0px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    height: 7px;
+    left: 0;
+    border-radius: 100px;
+}
+.services_text {
+    width: 90%;
+    float: left;
+    font-size: 16px;
+    color: #060606;
+    margin-left: 0px;
+}
+.moremore_bt {
+    width: 170px;
+    float: left;
+    margin-top: 30px;
+    position: relative;
+    z-index: 2;
+}
+
+.moremore_bt a {
+    width: 100%;
+    float: left;
+    font-size: 16px;
+    color: #4aafff;
+    border: 2px solid #88c6f8;
+    text-align: center;
+    padding: 10px 0px;
+    border-radius: 40px;
+}
+.moremore_bt a:hover {
+    color: #181818;
+    border: 2px solid #ff5a58;
+}
+.image_1{
+    width: 100%;
+    float: left;
+}
+
+.what_we_do_section{
+    width: 100%;
+    margin-top: 5%;
+    float: left;
+    background-color: white;
+    height: 80vh;
+
+}
+.what_taital {
+    width: 100%;
+    float: left;
+    font-size: 34px;
+    color: #060606;
+    padding-top: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+}
+.what_text {
+    width: 100%;
+    float: left;
+    font-size: 16px;
+    color: #060606;
+    margin-left: 0px;
+    text-align: center;
+    margin-top: 0px;
+}
+.what_we_do_section_2{
+    width: 100%;
+    float: left;
+    margin-top: 40px;
+}
+.box_main {
+    width: 100%;
+    float: left;
+    background-color: #1b5a8d;
+    border-radius: 10px;
+    padding: 30px 0px;
+}
+.box_main:hover{
+    background-color: #4CAF50;
+}
+.box_main.active {
+    background-color: #4CAF50;
+}
+.icon_1 {
+    width: 100%;
+    float: left;
+    text-align: center;
+    min-height: 70px;
+}
+.accounting_text{
+    width: 100%;
+    float: left;
+    font-size: 20px;
+    color: #ffffff;
+    text-align: center;
+    text-transform: uppercase;
+}
+.lorem_text{
+    width: 100%;
+    float: left;
+    font-size: 16px;
+    color: #ffffff;
+    text-align: center;
+    margin-left: 0px;
+}
+.moremore_bt_1 {
+    width: 170px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.moremore_bt_1 a {
+    width: 100%;
+    float: left;
+    font-size: 16px;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    text-align: center;
+    padding: 10px 0px;
+    border-radius: 40px;
+    text-decoration: none;
+}
+.moremore_bt_1 a:hover {
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+/**********************************************************************************************************/
+
+@media (max-width:990px){
+    .services_section {
+        width: 100%;
+        float: left;
+        /*background-image: url(../images/services-bg.png);*/
+        height: auto;
+        margin-top: 75px;
+        padding-bottom: 60px;
+        background-size: 100%;
+    }
+    
+    .services_taital {
+        width: 100%;
+        float: left;
+        font-size: 34px;
+        color: #282c47;
+        padding-top: 10px;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+    .services_taital::after {
+        content: '';
+        background-color: #ff5a58;
+        position: absolute;
+        width: 60px;
+        text-align: center;
+        right: initial;
+        top: 0px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        height: 7px;
+        left: 0;
+        border-radius: 100px;
+    }
+    .services_text {
+        width: 90%;
+        float: left;
+        font-size: 16px;
+        color: #060606;
+        margin-left: 0px;
+    }
+    .moremore_bt {
+        width: 170px;
+        float: left;
+        margin-top: 30px;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .moremore_bt a {
+        width: 100%;
+        float: left;
+        font-size: 16px;
+        color: #4aafff;
+        border: 2px solid #88c6f8;
+        text-align: center;
+        padding: 10px 0px;
+        border-radius: 40px;
+    }
+    .moremore_bt a:hover {
+        color: #181818;
+        border: 2px solid #ff5a58;
+    }
+    .image_1{
+        width: 100%;
+        float: left;
+    }
+    
+    .what_we_do_section{
+        width: 100%;
+        margin-top: 5%;
+        float: left;
+        background-color: white;
+        height: 80vh;
+    
+    }
+    .what_taital {
+        width: 100%;
+        float: left;
+        font-size: 34px;
+        color: #060606;
+        padding-top: 10px;
+        text-transform: uppercase;
+        font-weight: bold;
+        text-align: center;
+    }
+    .what_text {
+        width: 100%;
+        float: left;
+        font-size: 16px;
+        color: #060606;
+        margin-left: 0px;
+        text-align: center;
+        margin-top: 0px;
+    }
+    .what_we_do_section_2{
+        width: 100%;
+        float: left;
+        margin-top: 40px;
+    }
+    .box_main {
+        width: 100%;
+        float: left;
+        background-color: #1b5a8d;
+        border-radius: 10px;
+        padding: 25px 0px;
+        margin-top: 5%;
+    }
+    .box_main:hover{
+        background-color: #4CAF50;
+    }
+    .box_main.active {
+        background-color: #4CAF50;
+    }
+    .icon_1 {
+        width: 100%;
+        float: left;
+        text-align: center;
+        min-height: 70px;
+    }
+    .accounting_text{
+        width: 100%;
+        float: left;
+        font-size: 20px;
+        color: #ffffff;
+        text-align: center;
+        text-transform: uppercase;
+    }
+    .lorem_text{
+        width: 100%;
+        float: left;
+        font-size: 16px;
+        color: #ffffff;
+        text-align: center;
+        margin-left: 0px;
+    }
+    .moremore_bt_1 {
+        width: 170px;
+        margin: 0 auto;
+        text-align: center;
+        margin-top: 30px;
+    }
+    
+    .moremore_bt_1 a {
+        width: 100%;
+        float: left;
+        font-size: 16px;
+        color: #ffffff;
+        border: 2px solid #ffffff;
+        text-align: center;
+        padding: 10px 0px;
+        border-radius: 40px;
+        text-decoration: none;
+    }
+    .moremore_bt_1 a:hover {
+        color: #ffffff;
+        border: 2px solid #ffffff;
+    }
+    
+}
+
+/*******************************************************************************************************/
+
+@media (max-width:575px){
+    .services_section {
+        width: 100%;
+        float: left;
+        /*background-image: url(../images/services-bg.png);*/
+        height: auto;
+        margin-top: 85px;
+        padding-bottom: 60px;
+        background-size: 100%;
+    }
+    
+    .services_taital {
+        width: 100%;
+        float: left;
+        font-size: 34px;
+        color: #282c47;
+        padding-top: 10px;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+    .services_taital::after {
+        content: '';
+        background-color: #ff5a58;
+        position: absolute;
+        width: 60px;
+        text-align: center;
+        right: initial;
+        top: 0px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        height: 7px;
+        left: 0;
+        border-radius: 100px;
+    }
+    .services_text {
+        width: 90%;
+        float: left;
+        font-size: 16px;
+        color: #060606;
+        margin-left: 0px;
+    }
+    .moremore_bt {
+        width: 170px;
+        float: left;
+        margin-top: 30px;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .moremore_bt a {
+        width: 100%;
+        float: left;
+        font-size: 16px;
+        color: #4aafff;
+        border: 2px solid #88c6f8;
+        text-align: center;
+        padding: 10px 0px;
+        border-radius: 40px;
+    }
+    .moremore_bt a:hover {
+        color: #181818;
+        border: 2px solid #ff5a58;
+    }
+    .image_1{
+        width: 100%;
+        float: left;
+    }
+    
+    .what_we_do_section{
+        width: 100%;
+        margin-top: 10%;
+        float: left;
+        background-color: white;
+        height: 150vh;
+    
+    }
+    .what_taital {
+        width: 100%;
+        float: left;
+        font-size: 34px;
+        color: #060606;
+        padding-top: 10px;
+        text-transform: uppercase;
+        font-weight: bold;
+        text-align: center;
+    }
+    .what_text {
+        width: 100%;
+        float: left;
+        font-size: 16px;
+        color: #060606;
+        margin-left: 0px;
+        text-align: center;
+        margin-top: 0px;
+    }
+    .what_we_do_section_2{
+        width: 100%;
+        float: left;
+        margin-top: 40px;
+    }
+    .box_main {
+        width: 100%;
+        float: left;
+        background-color: #1b5a8d;
+        border-radius: 10px;
+        padding: 25px 0px;
+        margin-top: 5%;
+    }
+    .box_main:hover{
+        background-color: #4CAF50;
+    }
+    .box_main.active {
+        background-color: #4CAF50;
+    }
+    .icon_1 {
+        width: 100%;
+        float: left;
+        text-align: center;
+        min-height: 70px;
+    }
+    .accounting_text{
+        width: 100%;
+        float: left;
+        font-size: 20px;
+        color: #ffffff;
+        text-align: center;
+        text-transform: uppercase;
+    }
+    .lorem_text{
+        width: 100%;
+        float: left;
+        font-size: 16px;
+        color: #ffffff;
+        text-align: center;
+        margin-left: 0px;
+    }
+    .moremore_bt_1 {
+        width: 170px;
+        margin: 0 auto;
+        text-align: center;
+        margin-top: 30px;
+    }
+    
+    .moremore_bt_1 a {
+        width: 100%;
+        float: left;
+        font-size: 16px;
+        color: #ffffff;
+        border: 2px solid #ffffff;
+        text-align: center;
+        padding: 10px 0px;
+        border-radius: 40px;
+        text-decoration: none;
+    }
+    .moremore_bt_1 a:hover {
+        color: #ffffff;
+        border: 2px solid #ffffff;
+    }
+
+
+}
