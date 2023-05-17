@@ -4,7 +4,6 @@ import Account from "../JS/Account";
 import myImage from "../Img/Logosvg/stockapplogo.svg";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import TextField from "@mui/material/TextField";
 
 function Header() {
   return (
@@ -56,9 +55,7 @@ function Header() {
           </label>
         
 
-          <div className="search">
-            <TextField label="Search" variant="outlined" id="outlined-basic" color="primary"/>
-          </div>
+         
           <ul>
             <li>
               <a class="active" href="/Home">
