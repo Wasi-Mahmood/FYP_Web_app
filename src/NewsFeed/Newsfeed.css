@@ -17,6 +17,11 @@
     margin-top: 0%;
 }
 
+.searchBar {
+
+    margin-top: -10px;
+}
+
 @media(max-width:1256px){
     .newsfeed{
         margin-top: 7%;

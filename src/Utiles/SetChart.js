@@ -7,7 +7,7 @@ const GenerateLineSeriesChart = (props) => {
   let {ticker} = props;
   const stockData = GetStockData({ ticker });
 
-  
+ 
   
 
   useEffect(() => {
@@ -63,6 +63,9 @@ const GenerateLineSeriesChart = (props) => {
 
     
   }, [stockData]);
+
+
+
 
   return <div id="chart-container"></div>;
 };
