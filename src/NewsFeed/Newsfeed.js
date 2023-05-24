@@ -9,7 +9,7 @@ import { PostStore } from "../App";
 
 function Newsfeed() {
   const data = useContext(PostStore);
-  console.log("🚀 ~ file: Newsfeed.js:18 ~ Newsfeed ~ data:", data.refresh);
+  console.log("🚀 ~ file: Newsfeed.js:18 ~ Newsfeed ~ data:", data.ticker);
   const [stockticker, setStockticker] = useState('')
 
   
