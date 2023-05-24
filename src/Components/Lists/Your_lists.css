@@ -1,0 +1,14 @@
+.watchList{
+    cursor: pointer;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: black;
+    width: 80px;
+    height: 45px;
+    margin-left: 50px;
+    color: azure;
+    text-align: auto;
+    vertical-align: middle;
+    padding-top: 7px;
+    
+}

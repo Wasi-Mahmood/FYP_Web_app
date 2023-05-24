@@ -3,6 +3,7 @@ import Header from "./Components/Header";
 import Newsfeed from "./NewsFeed/Newsfeed";
 import Stats from "./Stats/Stats";
 import Footer from "./Components/Footer";
+import Test_list from "./Components/Lists/Test_list";
 import Account from "./JS/Account";
 import Registrationform from "./NavItems/Js/Registrationform";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -10,6 +11,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import React, { useContext, useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { auth } from "./firebase";
+import Your_lists from "./Components/Lists/Your_lists";
 
 export const PostStore = React.createContext();
 
@@ -30,6 +32,13 @@ function App() {
          
           <Header />
       </div>
+
+      <div className="your_lists">
+      <Your_lists/>
+
+
+      </div>
+
       <div className="app__body">
         <div className="app__container">
           <Newsfeed />

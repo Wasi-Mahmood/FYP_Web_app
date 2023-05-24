@@ -14,6 +14,9 @@ import Loginform from './NavItems/Js/Loginform';
 import Portfolio from './NavItems/Js/Portfolio';
 import Services from './NavItems/Js/Services';
 import Profile from './Profile/Profile';
+import Test_list from './Components/Lists/Test_list';
+import { elements } from 'chart.js';
+import { WatchListProvider } from './Components/Lists/Your_lists';
 
 const router = createBrowserRouter([
   {
@@ -46,8 +49,15 @@ const router = createBrowserRouter([
   {
     path: "Profile",
     element: <Profile/>
+  },
+  {
+    path: "Test_list",
+    element: <Test_list/>
   }
+
 ]);
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

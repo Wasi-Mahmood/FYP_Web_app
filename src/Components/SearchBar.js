@@ -3,6 +3,7 @@ import React,{useState} from "react";
 export default function SearchBar({ onSearch}){
 
     const [ticker, setticker] = useState("")
+    console.log("🚀 ~ file: SearchBar.js:6 ~ SearchBar ~ ticker:", ticker)
 
     const handleSearch =() =>
     {

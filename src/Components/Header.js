@@ -17,9 +17,14 @@ function Header() {
  
   const [Ticker, setTicker] = useState("");
   const [refresh , setrefresh] = useState(false)
+  
+  console.log("🚀 ~ file: Header.js:19 ~ Header ~ Ticker:", Ticker)
 
-  data.setticker(Ticker)
-  data.setrefresh(refresh)
+  if (Ticker && refresh !== undefined){
+    data.setticker(Ticker)
+    data.setrefresh(refresh)
+  }
+
  
 
   const handleSearch = (ticker) => {

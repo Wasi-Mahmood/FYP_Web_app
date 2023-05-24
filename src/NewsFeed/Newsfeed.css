@@ -17,7 +17,12 @@
     margin-top: 0%;
 }
 
-
+.your_lists{
+    background-color:rgb(73, 72, 72);
+    height: 100px;
+    margin-top: 27px;
+    border:1px;
+}
 @media(max-width:1256px){
     .newsfeed{
         margin-top: 7%;
