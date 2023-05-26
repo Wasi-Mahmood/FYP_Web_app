@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import {BrowserRouter, useNavigate } from "react-router-dom";
 import Test_list from "./Test_list";
 
@@ -6,7 +6,8 @@ import "./Your_lists.css";
 import { elements } from "chart.js";
 import { createBrowserRouter } from "react-router-dom";
 import { createContext } from "react";
-
+import { app, db  } from "../../firebase";
+import {query, collection, onSnapshot, QuerySnapshot, getDocs, getFirestore} from 'firebase/firestore'
 
 export const watchListStore = React.createContext()
 
@@ -32,6 +33,7 @@ export default function Your_lists()
     console.log("🚀 ~ file: Your_lists.js:6 ~ watchList:", watchList)
     const [watchListName, setwatchListName] = useState("")
     const [newStockTicker, setNewStockTicker] = useState("");
+    
     const navigate =useNavigate()
     
     
@@ -53,6 +55,63 @@ export default function Your_lists()
         updatedWatchList[watchListKey].push(ticker)
         setwatchList(updatedWatchList)
     }
+
+
+
+
+
+
+    const [TestWatchlist, setTestWatchlist] = useState([])
+
+
+
+    const ReadWatchlistFromFirebase = async() =>{
+
+        console.log("🚀 ~ file: Your_lists.js:37 ~ TestWatchlist:", 5)
+        let watchlist =[]
+
+        // useEffect(() =>{
+
+        //     const q = query(collection(db, 'User_Watch_Lists'))
+        //     const unsubscribe = onSnapshot(q,(querySnapshot) => {
+        //         let watchlist =[]
+        //         querySnapshot.forEach((doc)=> {
+                    
+        //             watchList.push({...doc.data(), id: doc.id})
+        //         });
+
+        //         console.log("🚀 ~ file: Your_lists.js:83 ~ unsubscribe ~ watchlist:", watchlist)
+        //         setTestWatchlist(watchlist)
+
+        //     })
+
+        //     return() => unsubscribe()
+
+        // },[]);
+       
+        // const q = query(collection(db,'User_Watch_Lists'))
+        // const querySnapshot = await getDocs(collection('User_Watch_Lists', db));
+        // console.log("🚀 ~ file: Your_lists.js:94 ~ ReadWatchlistFromFirebase ~ querySnapshot:", querySnapshot)
+        
+        // querySnapshot.forEach((doc) => {
+        //     // doc.data() is never undefined for query doc snapshots
+        //     console.log(doc.id, " => ", doc.data());
+        //   });
+        const q = query(collection(db, 'User_Watch_Lists'));
+    onSnapshot(q, (querySnapshot) => {
+      let todosArr = [];
+      querySnapshot.forEach((doc) => {
+          todosArr.push({ ...doc.data(), id: doc.id });
+        });
+        console.log("🚀 ~ file: Your_lists.js:103 ~ unsubscribe ~ todosArr:", todosArr)
+      
+    });
+    }
+
+
+
+
+
 
 
 
@@ -89,9 +148,18 @@ export default function Your_lists()
         // })
     
 
-        navigate("/Test_list");
-
+        navigate("/Test_list", {state: 55});
+    
+      
        
+    }
+
+    const handleReadWatchlistClick =() =>{
+        
+            const read =ReadWatchlistFromFirebase()
+
+    
+        console.log("🚀 ~ file: Your_lists.js:137 ~ handleReadWatchlistClick ~ read:", read)
     }
 
     return(
@@ -105,6 +173,7 @@ export default function Your_lists()
         />
         
             <button onClick={handleCreateWatchList}> Add Watch List </button>
+            <button onClick={ReadWatchlistFromFirebase}> Read WatchList</button>
         
         {
             Object.entries(watchList).map(([watchListName, watchList]) =>
