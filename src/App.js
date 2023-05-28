@@ -23,6 +23,25 @@ export const PostStore = React.createContext();
 function App() {
   const [ticker, setticker] = useState("");
   const [refresh , setrefresh] = useState(false)
+
+  const [showNewsfeed, setShowNewsfeed] = useState(true);
+  const [showTestlist, setShowTestlist] = useState(false);
+  const [WatchList, setWatchList] = useState({})
+  console.log("🚀 ~ file: App.js:30 ~ App ~ watchList:", WatchList)
+
+  const handleClickWatchlist = (watchlist_name, watchlist) => {
+    setShowNewsfeed(false);
+    setShowTestlist(true);
+    setWatchList({[watchlist_name]: watchlist})
+  };
+
+  const handleClickStockSearch =() =>
+  {
+    setShowNewsfeed(true);
+    setShowTestlist(false);
+
+  }
+
   return (
     <div className="App">
 
@@ -30,18 +49,22 @@ function App() {
       <div className="app__header">
           {/*HEADER*/}
          
-          <Header />
+          <Header handleClickStockSearch ={handleClickStockSearch}/>
       </div>
 
       <div className="your_lists">
-      <Your_lists/>
+      <Your_lists handleClickWatchlist ={handleClickWatchlist}/>
 
 
       </div>
 
+
+
+
       <div className="app__body">
         <div className="app__container">
-          <Newsfeed />
+          {showNewsfeed && <Newsfeed/>}
+          {showTestlist && <Test_list  WatchList={WatchList}/>}
           {/*STATS */}
 
           <Stats />

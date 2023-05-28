@@ -1,209 +1,289 @@
-import React, { useState , useEffect} from "react";
-import {BrowserRouter, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter, useNavigate } from "react-router-dom";
 import Test_list from "./Test_list";
 
 import "./Your_lists.css";
 import { elements } from "chart.js";
 import { createBrowserRouter } from "react-router-dom";
 import { createContext } from "react";
-import { app, db  } from "../../firebase";
-import {query, collection, onSnapshot, QuerySnapshot, getDocs, getFirestore} from 'firebase/firestore'
-
-export const watchListStore = React.createContext()
+import { app, db } from "../../firebase";
+import {query,collection,onSnapshot,QuerySnapshot,getDocs,addDoc,updateDoc,deleteDoc,doc} from "firebase/firestore";
 
 
-export const WatchListProvider =( {children}) =>
-{
-    const [watchlistdata, setwatchlistdata] = useState()
 
-    return<watchListStore.Provider value={watchlistdata}>
-        
-        {children}
+export const watchListStore = React.createContext();
+
+export const WatchListProvider = ({ children }) => {
+  const [watchlistdata, setwatchlistdata] = useState();
+
+  return (
+    <watchListStore.Provider value={watchlistdata}>
+      {children}
     </watchListStore.Provider>
+  );
+};
 
 
+
+
+
+export default function Your_lists({handleClickWatchlist}) {
+  const [watchList, setwatchList] = useState({});
+  console.log("🚀 ~ file: Your_lists.js:6 ~ watchList:", watchList);
+  const [watchListName, setwatchListName] = useState("");  
+  const [newStockTicker, setNewStockTicker] = useState("");
+  const [DocID, setDocID] = useState([]);
+
+
+  const [Testwatchlistdata, setTestwatchlistdata] = useState("")
+
+  const navigate = useNavigate();
+
+
+
+// Ask From Sheroz !
+const createWatchList = (watchListName) => {
+    setwatchList((prevWatchList) => {
+        
+      return { ...prevWatchList, [watchListName] :[] };
+    });
+  };
+
+
+//   const addToWatchList = (watchListKey, ticker) => {
+//     const updatedWatchList = { ...watchList };
+//     if (!updatedWatchList[watchListKey]) {
+//       updatedWatchList[watchListKey] = [];
+//     }
+//     updatedWatchList[watchListKey].push((ticker));
+//     console.log("🚀 ~ file: Your_lists.js:65 ~ addToWatchList ~ updatedWatchList:", updatedWatchList)
+    
+//     setwatchList(updatedWatchList);
+    
+//     setwatchList((prevWatchList) => {
+//         return { ...prevWatchList, [updatedWatchList]:[] };
+//       });
+
+//   };
+
+
+
+
+// Ask From Sheroz !
+const addToWatchList = (watchListKey, ticker) => {
+    setwatchList((prevWatchList) => {
+      const updatedWatchList = { ...prevWatchList };
+      if (!updatedWatchList[watchListKey]) {
+        updatedWatchList[watchListKey] = [];
+      }
+      updatedWatchList[watchListKey] = [...updatedWatchList[watchListKey], ticker];
+      return updatedWatchList;
+    });
+  };
+  
+
+
+
+
+//read watchlist as the component loads
+useEffect(() => {
+    
+    const ReadWatchlistFromFirebase = async () => {
+    //   console.log("🚀 ~ file: Your_lists.js:37 ~ TestWatchlist:", 5);
+    
+  
+      //read watchlist
+      const q = query(collection(db, "User_Watch_Lists"));
+      const unsubscribe  = onSnapshot(q, (querySnapshot) => {
+        let watchlist = [];
+        querySnapshot.forEach((doc) => {
+          watchlist.push({ ...doc.data(), id: doc.id });
+          setDocID((prevDocID) => [...prevDocID, doc.id]);
+
+        });
+        watchlist.forEach(element => {
+            Object.keys(element).slice(0, Object.keys(element).length -1).forEach((WatchList_name) => {
+                setTimeout(() => {
+                    
+                    const ticker_array = element[WatchList_name]
+                    createWatchList(WatchList_name);
+                    ticker_array.forEach(ticker => {
+                                addToWatchList(WatchList_name,ticker)
+                        });
+                    }, 0);
+            })
+        }) 
+      });
+
+      return ()=> unsubscribe()
+      
+  };
+ReadWatchlistFromFirebase();
+
+}, [])
+
+
+
+const writeWatchListToFireBase =(watchlistKey,watchList) =>{
+    let updatedWatchList = {...watchList}
+    const watchlistValue = updatedWatchList[watchlistKey]
+    
+    console.log("🚀 ~ file: Your_lists.js:176 ~ handleCreateWatchList ~ lastValue:", watchlistValue)
+    console.log("🚀 ~ file: Your_lists.js:173 ~ handleCreateWatchList ~ topkey:", watchlistKey)
+    console.log("🚀 ~ file: Your_lists.js:176 ~ handleCreateWatchList ~ updatedWatchList:", updatedWatchList)
+
+
+    //writeWatchlist
+    // this commented code will be used to add the document into the firebase
+    // in the document there will be watchlist initilized later
+    // this code is useful when user signs up for the app and there is no preior doc or watchlist 
+    // we can add this piece of code into the useEffect where it checks, if there is doc for the user in firebase or not
+    // if there ain't any doc in database for a use this code can make one 
+    // addDoc(collection(db, "User_Watch_Lists"),{
+
+    //     // watchlist: ["TSLA", "IBM", "GOOG"] 
+    //     //watchlistKey : watchlistValue
+    //      lastkey:lastValue
+    // })
+
+
+
+    //UpdateWatchlist
+  updateDoc(doc(db,"User_Watch_Lists", DocID[0]) ,{
+    [watchlistKey]: watchlistValue 
+})
 }
 
 
 
-export default function Your_lists()
+
+
+//deleteWatchlist
+// deleteDoc(doc(db,"User_Watch_Lists","BcnYzl9Q4Jgibal4Y8rn"))
+//  console.log("delete Mai cahl giya")
+
+
+
+const TestHandlewatchListNameChange =(watchlist_name) =>
 {
-    
-    const [watchList, setwatchList] = useState({})
-    console.log("🚀 ~ file: Your_lists.js:6 ~ watchList:", watchList)
-    const [watchListName, setwatchListName] = useState("")
-    const [newStockTicker, setNewStockTicker] = useState("");
-    
-    const navigate =useNavigate()
-    
-    
+    setwatchListName(watchlist_name)
+}
 
 
-    const createWatchList = (watchListName)=>{
+
+  const handelWatchListNameChange = (e) => {
+    setwatchListName(e.target.value);
+  };
+
+  const HandleCreateWatchList = () => {
+    // createWatchList(watchListName);
+
+    
+    setwatchList((prevWatchList) => {
         
-        const newWatchList ={[watchListName]:[]}
-        setwatchList({...watchList, ...newWatchList})
-
-    };
-
-    const addToWatchList =(watchListKey, ticker) =>
-    {
-        const updatedWatchList ={...watchList}
-        if(!updatedWatchList[watchListKey]){
-            updatedWatchList[watchListKey] =[]
-        }
-        updatedWatchList[watchListKey].push(ticker)
-        setwatchList(updatedWatchList)
-    }
+        const updatedList = { ...prevWatchList, [watchListName] :[] };
+        writeWatchListToFireBase(watchListName,updatedList)
+        return updatedList
+      });
 
 
+    setwatchListName("");
+    
 
+};
 
+// useEffect(() => {
 
-
-    const [TestWatchlist, setTestWatchlist] = useState([])
-
-
-
-    const ReadWatchlistFromFirebase = async() =>{
-
-        console.log("🚀 ~ file: Your_lists.js:37 ~ TestWatchlist:", 5)
-        let watchlist =[]
-
-        // useEffect(() =>{
-
-        //     const q = query(collection(db, 'User_Watch_Lists'))
-        //     const unsubscribe = onSnapshot(q,(querySnapshot) => {
-        //         let watchlist =[]
-        //         querySnapshot.forEach((doc)=> {
-                    
-        //             watchList.push({...doc.data(), id: doc.id})
-        //         });
-
-        //         console.log("🚀 ~ file: Your_lists.js:83 ~ unsubscribe ~ watchlist:", watchlist)
-        //         setTestWatchlist(watchlist)
-
-        //     })
-
-        //     return() => unsubscribe()
-
-        // },[]);
-       
-        // const q = query(collection(db,'User_Watch_Lists'))
-        // const querySnapshot = await getDocs(collection('User_Watch_Lists', db));
-        // console.log("🚀 ~ file: Your_lists.js:94 ~ ReadWatchlistFromFirebase ~ querySnapshot:", querySnapshot)
+//     setwatchList((prevWatchList) => {
         
-        // querySnapshot.forEach((doc) => {
-        //     // doc.data() is never undefined for query doc snapshots
-        //     console.log(doc.id, " => ", doc.data());
-        //   });
-        const q = query(collection(db, 'User_Watch_Lists'));
-    onSnapshot(q, (querySnapshot) => {
-      let todosArr = [];
-      querySnapshot.forEach((doc) => {
-          todosArr.push({ ...doc.data(), id: doc.id });
-        });
-        console.log("🚀 ~ file: Your_lists.js:103 ~ unsubscribe ~ todosArr:", todosArr)
-      
+//         return { ...prevWatchList, [watchListName] :[] };
+//       });
+
+
+// }, [watchList])
+
+
+
+  
+  const handleAddToWatchList = (watchListKey) => {
+    //addToWatchList(watchListKey, newStockTicker);
+
+    
+    setwatchList((prevWatchList) => {
+      const updatedWatchList = { ...prevWatchList };
+      if (!updatedWatchList[watchListKey]) {
+        updatedWatchList[watchListKey] = [];
+      }
+      updatedWatchList[watchListKey] = [...updatedWatchList[watchListKey], newStockTicker];
+
+      writeWatchListToFireBase(watchListKey,updatedWatchList)
+      return updatedWatchList;
     });
-    }
 
+    setNewStockTicker("");
+  };
 
-
-
-
-
-
-
-
-    const handelWatchListNameChange =(e) =>
-    {
-        setwatchListName(e.target.value)
-    };
-
-    const handleCreateWatchList = () =>
-    {
-        createWatchList(watchListName)
-        setwatchListName("")
-        
-    }
-    const handleAddToWatchList =(watchListKey) =>
-    {
-        addToWatchList(watchListKey, newStockTicker)
-        setNewStockTicker("")
-    }
-
-    const handleStockTickerChange =(e) =>
-    {
-        setNewStockTicker(e.target.value)
-    }
+  const handleStockTickerChange = (e) => {
     
-    const handleWatchlistClick =() =>{
-       
-       
-        
-        // setRoutes({
-        //     path: "Test_list/wasi",
-        //     element: <Test_list/>
-        // })
-    
+    setNewStockTicker(e.target.value);
+  };
 
-        navigate("/Test_list", {state: 55});
-    
-      
-       
-    }
+  const handleWatchlistClick = (watchlist_name) => {
+  console.log("🚀 ~ file: Your_lists.js:232 ~ handleWatchlistClick ~ watchlist_name:", watchList[watchlist_name])
+    // setRoutes({
+    //     path: "Test_list/wasi",
+    //     element: <Test_list/>
+    // })
+    handleClickWatchlist(watchlist_name, watchList[watchlist_name])
+    // navigate("/Test_list", { state: 55 });
+  };
 
-    const handleReadWatchlistClick =() =>{
-        
-            const read =ReadWatchlistFromFirebase()
+  const handleReadWatchlistClick = () => {
+    // const read = ReadWatchlistFromFirebase();
 
-    
-        console.log("🚀 ~ file: Your_lists.js:137 ~ handleReadWatchlistClick ~ read:", read)
-    }
+    console.log(
+      "🚀 ~ file: Your_lists.js:137 ~ handleReadWatchlistClick ~ read:",5);
+  };
 
-    return(
 
-        <div>
-        <input
+
+
+
+  
+  return (
+    <div>
+      <input
         type="text"
         value={watchListName}
         onChange={handelWatchListNameChange}
         placeholder="Enter Wishlist Name"
-        />
-        
-            <button onClick={handleCreateWatchList}> Add Watch List </button>
-            <button onClick={ReadWatchlistFromFirebase}> Read WatchList</button>
-        
-        {
-            Object.entries(watchList).map(([watchListName, watchList]) =>
-               (
+      />
 
-                <div key={watchListName}>
-                    <div className="watchList" onClick={handleWatchlistClick}>
+      <button onClick={HandleCreateWatchList}> Add Watch List </button>
+      {/* <button onClick={ReadWatchlistFromFirebase}> Read WatchList</button> */}
 
-                        <h5>{watchListName}</h5>
-                       
-                    <div>
-                </div>
-                <watchListName key={watchListName} c/>
-                    </div>
-                <input
-                 type ="text"
-                 value={newStockTicker}
-                 onChange={handleStockTickerChange}
-                 placeholder="Enter Stock Ticker"
-                 />
+      <div className="watchListsContainer">
+          {Object.entries(watchList).map(([watchListName, watchList]) => (
+             <div className="watchListContainer" key={watchListName}>
+              <div className="watchList" onClick={() => handleWatchlistClick(watchListName)}>
+                <h5>{watchListName}</h5>
+                <div></div>
+                <watchListName key={watchListName}/>
+              </div>
+              {/* <input
+                type="text"
+                value={newStockTicker}
+                onChange={handleStockTickerChange}
+                placeholder="Enter Stock Ticker"
+              />
 
-                    <button onClick={() => handleAddToWatchList(watchListName)}>
-                    Add to Watch List 
-                    </button>
-                  </div>
-               )
-            
-            )
-        }
-        
-        </div>
-    )
+              <button onClick={() => handleAddToWatchList(watchListName)}>
+                Add to Watch List
+              </button> */}
+            </div>
+          ))}
+      </div>
+   
+    </div>
+  );
 }
