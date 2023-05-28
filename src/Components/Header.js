@@ -11,7 +11,7 @@ import {PostStore} from "../App"
 
 
 
-function Header() {
+function Header({handleClickStockSearch}) {
 
  const data = useContext(PostStore)
  
@@ -30,6 +30,7 @@ function Header() {
   const handleSearch = (ticker) => {
    setTicker(ticker);
    setrefresh(true)
+   handleClickStockSearch()
   }
 
   return (

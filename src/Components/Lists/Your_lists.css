@@ -1,14 +1,40 @@
-.watchList{
-    cursor: pointer;
-    border: 2px solid black;
-    border-radius: 5px;
-    background-color: black;
-    width: 80px;
-    height: 45px;
-    margin-left: 50px;
-    color: azure;
-    text-align: auto;
-    vertical-align: middle;
-    padding-top: 7px;
-    
+.watchList {
+  cursor: pointer;
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: black;
+  width: auto;
+  padding: 5px;
+  color: azure;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
+
+.watchListsContainer {
+    display: flex; /* Use flexbox to display the watch list divs in a row */
+    flex-wrap: nowrap; /* Allow wrapping of watch list divs to next line if needed */
+    justify-content: flex-start; /* Align watch list divs to the start of the container */
+    max-height: 80px; /* Set a maximum height to trigger vertical scroll */
+    overflow-x: auto; /* Enable horizontal scroll */
+    overflow-y: hidden;
+    /* white-space: nowrap; */
+    width: 100%;
+    
+   
+  }
+  
+  .watchListContainer {
+    display: flex; /* Use flexbox to display the content within each watch list div */
+    flex-direction: column; /* Stack the content vertically */
+    margin: 10px; /* Add margin between watch list divs */
+    margin-right: 30px;
+
+  }
+  
+  /* .watchListName {
+    word-wrap: break-word; 
+    overflow-wrap: break-word; 
+    max-width: 100%; 
+  } */

@@ -1,0 +1,45 @@
+.WatchListContainer{
+    border: 1px solid grey;
+    padding: 10px;
+    width: 700px;
+    height: auto;
+    max-height: 600px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    margin-left: -150px;
+    border-radius: 5px;
+    overflow-y: auto; 
+    overflow-x: auto; 
+
+
+}
+.Keycontainer{
+    cursor: pointer;
+  border: 1px solid darkgrey;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: gray;
+  text-align: left ;
+}
+
+.valueTickercontainer{
+    cursor: pointer;
+    border: 1px solid gray;
+    background-color: lightgray;
+
+    text-align: left ;
+    
+    
+
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 5px;
+    height: 60px;
+
+    overflow-x: auto;
+    overflow-y: hidden; 
+    /* overflow-y: auto; */
+
+}
