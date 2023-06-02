@@ -64,6 +64,11 @@ import iex from "../config/myAPI";
 import React, { useEffect, useState } from "react";
 
 export default function GetStockData({ ticker }) {
+  
+  const [graphdata, setGraphdata] = useState([]);
+  const [predGraphData, setPredGraphData] = useState([]);
+
+
   const latestPriceURL = (ticker) => {
     return `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${ticker}&apikey=${iex.Alpha_vantage_API_KEY}&&outputsize=compact&datatype=json&interval=5min&time_period=30`;
   };
@@ -75,6 +80,9 @@ export default function GetStockData({ ticker }) {
 
   const formatePriceData = (data) => {
     const timeseries = data["Time Series (Daily)"];
+    console.log("🚀 ~ file: GetStockData.js:78 ~ formatePriceData ~ data:", data)
+
+    
     const stockData = Object.keys(timeseries).map((date) => {
       return {
         date: formatDate(date),
@@ -92,28 +100,67 @@ export default function GetStockData({ ticker }) {
     return formattedData;
   };
 
-  const [graphdata, setGraphdata] = useState([]);
+
+  const formatePREDpriceData =(data)=>{
+    const predData = Object.keys(data).map((date) =>{
+      return {
+
+        date: formatDate(date),
+        close :data[date]['close']
+      };
+    });
+    return Object.values(predData);
+  }
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        if(ticker !== undefined )
+        {
         const response = await fetch(latestPriceURL(ticker));
         const data = await response.json();
         const formattedData = formatePriceData(data);
+        console.log("🚀 ~ file: GetStockData.js:108 ~ fetchData ~ formattedData:", formattedData)
         if(formatDate !== undefined){
 
           setGraphdata(formattedData);
+          
         }
         else{
-          console.log("Data Undefined")
+          console.log("Stock Data Undefined")
         }
-      } catch (error) {
+      }
+    } 
+      catch (error) {
         console.error("Error fetching stock data:", error);
       }
+    
     };
 
+    //prediction Data
+    const fetchPredictionData = async () =>{
+      try{
+            const response = await fetch(`http://127.0.0.1:5000/pred?ticker=${ticker}`)
+            const PredData = await response.json();
+            const formattedPredData = formatePREDpriceData(PredData)
+            if(formatePREDpriceData !== undefined)
+            {
+              setPredGraphData(formattedPredData)
+            }
+            else{
+              console.log("Pred Data Undefined")
+            }
+          }
+      catch{
+            console.log("Pred Failed to Fetch")
+           }
+      
+    }
+
     fetchData();
+    fetchPredictionData()
   }, [ticker]);
 
-  return graphdata;
+  return [graphdata, predGraphData];
 }
