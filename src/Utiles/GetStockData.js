@@ -67,10 +67,11 @@ export default function GetStockData({ ticker }) {
   
   const [graphdata, setGraphdata] = useState([]);
   const [predGraphData, setPredGraphData] = useState([]);
+  const [prevPredGraphData, setPrevPredGraphData] = useState([]);
 
 
   const latestPriceURL = (ticker) => {
-    return `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${ticker}&apikey=${iex.Alpha_vantage_API_KEY}&&outputsize=compact&datatype=json&interval=5min&time_period=30`;
+    return `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${ticker}&apikey=${iex.Alpha_vantage_API_KEY}&&outputsize=compact&datatype=json&interval=5min&time_period=60`;
   };
 
   const formatDate = (dateString) => {
@@ -80,7 +81,7 @@ export default function GetStockData({ ticker }) {
 
   const formatePriceData = (data) => {
     const timeseries = data["Time Series (Daily)"];
-    console.log("🚀 ~ file: GetStockData.js:78 ~ formatePriceData ~ data:", data)
+    // console.log("🚀 ~ file: GetStockData.js:78 ~ formatePriceData ~ data:", data)
 
     
     const stockData = Object.keys(timeseries).map((date) => {
@@ -119,7 +120,7 @@ export default function GetStockData({ ticker }) {
         if(ticker !== undefined )
         {
         const response = await fetch(latestPriceURL(ticker));
-        const data = await response.json();
+        const data = await response.json();        
         const formattedData = formatePriceData(data);
         console.log("🚀 ~ file: GetStockData.js:108 ~ fetchData ~ formattedData:", formattedData)
         if(formatDate !== undefined){
@@ -143,6 +144,8 @@ export default function GetStockData({ ticker }) {
       try{
             const response = await fetch(`http://127.0.0.1:5000/pred?ticker=${ticker}`)
             const PredData = await response.json();
+            console.log("🚀 ~ file: GetStockData.js:146 ~ fetchPredictionData ~ PredData:", PredData)
+            
             const formattedPredData = formatePREDpriceData(PredData)
             if(formatePREDpriceData !== undefined)
             {
@@ -158,9 +161,39 @@ export default function GetStockData({ ticker }) {
       
     }
 
+
+
+
+    //prev prediction Data
+    const fetchPrevPredictionData = async () =>{
+      try{
+            const response = await fetch(`http://127.0.0.1:5000/PrevPred?ticker=${ticker}`)            
+            const prevPredData = await response.json();
+            console.log("🚀 ~ file: GetStockData.js:146 ~ fetchPredictionData ~ prevPredData:", prevPredData)
+            
+            const formattedPrevPredData = formatePREDpriceData(prevPredData)
+            if(formatePREDpriceData !== undefined)
+            {
+              setPrevPredGraphData(formattedPrevPredData)
+            }
+            else{
+              console.log("Pred Data Undefined")
+            }
+          }
+      catch{
+            console.log("Pred Failed to Fetch")
+           }
+      
+    }
+
+
+
+
+
     fetchData();
     fetchPredictionData()
+    fetchPrevPredictionData()
   }, [ticker]);
 
-  return [graphdata, predGraphData];
+  return [graphdata, predGraphData,prevPredGraphData];
 }
