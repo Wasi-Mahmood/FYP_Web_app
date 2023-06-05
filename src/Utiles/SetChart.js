@@ -4,10 +4,10 @@ import GetStockData from "./GetStockData";
 
 
 const GenerateLineSeriesChart = (props) => {
-  let {ticker, showPred} = props;
+  let {ticker, showPred,showPrevPred} = props;
   console.log("🚀 ~ file: SetChart.js:8 ~ GenerateLineSeriesChart ~ showPred:", showPred)
   
-  const [stockData, PredData]= GetStockData({ ticker });
+  const [stockData, PredData, PrevPredData]= GetStockData({ ticker });
   console.log("🚀 ~ file: SetChart.js:9 ~ GenerateLineSeriesChart ~ PredData:", PredData)
 
  
@@ -16,7 +16,7 @@ const GenerateLineSeriesChart = (props) => {
   useEffect(() => {
 
 
-    const generateChart = (stockData,PredData) => {
+    const generateChart = (stockData,PredData,PrevPredData) => {
       const chartContainer = document.getElementById('chart-container');
 
       const chart = createChart(chartContainer, {
@@ -62,7 +62,7 @@ const GenerateLineSeriesChart = (props) => {
 
         predlineSeries.applyOptions({
           priceLineVisible: true,
-          color: 'green',
+          color: 'darkgreen',
           lineWidth: 1,
           lineStyle: LineStyle.Solid,
   
@@ -78,13 +78,46 @@ const GenerateLineSeriesChart = (props) => {
   
         chart.timeScale().fitContent();
       }
+
+
+
+
+
+      if(PrevPredData !== (undefined || null) && showPrevPred === true ){
+        const prevPredlineSeries = chart.addLineSeries();
+        
+
+        prevPredlineSeries.applyOptions({
+          priceLineVisible: true,
+          color: 'darkred',
+          lineWidth: 1,
+          lineStyle: LineStyle.Solid,
+  
+        });
+  
+        const PrevPredchartData = PrevPredData.map((item) => ({
+          time: item.date,
+          value: parseFloat(item.close),
+        }));
+        PrevPredchartData.sort((a, b) => a.time - b.time);
+  
+        prevPredlineSeries.setData(PrevPredchartData);
+  
+        chart.timeScale().fitContent();
+      }
+
+
+
+
+
+
     };
 
         
 
         if (stockData.length !== 0) {
             console.log("Calling GenerateChart Function")
-            generateChart(stockData,PredData);
+            generateChart(stockData,PredData,PrevPredData);
         }
     
         else{

@@ -12,6 +12,8 @@ function Newsfeed() {
   console.log("🚀 ~ file: Newsfeed.js:18 ~ Newsfeed ~ data:", data.ticker);
   const [stockticker, setStockticker] = useState('')
   const [showPred, setShowPred] = useState(false)
+  const [showPrevPred, setShowPrevPred] = useState(false)
+
 
   
 
@@ -19,6 +21,8 @@ function Newsfeed() {
   
  useEffect(() => {
   setShowPred(false)
+  setShowPrevPred(false)
+
   data.setrefresh(false)
   setStockticker(data.ticker)
   
@@ -32,17 +36,27 @@ function Newsfeed() {
 
  }
 
+ const handleOnClickPrevPred =()=>{
+  setShowPrevPred(true)
+  data.setrefresh(false)
+
+ }
+
   return (
     <div className="newsfeed">
       <div className="newsfeed__container">
         <div className="newsfeed__chartsection">
           <div className="newsfeed__portfolio">
             {
-              !data.refresh ? "Loading.." : <GenerateLineSeriesChart ticker={stockticker} showPred={showPred} />     
+              !data.refresh ? "Loading.." : <GenerateLineSeriesChart ticker={stockticker} showPred={showPred} showPrevPred={showPrevPred} />     
             }
             
             {
               !data.refresh ? " ": <button onClick={handleOnClickPred}>Show Predictions</button>              
+            }
+
+            {
+              !data.refresh ? " ": <button onClick={handleOnClickPrevPred}>Show Prev Predictions </button>              
             }
             
           </div>
